@@ -1,6 +1,21 @@
 import logo from './logo.svg';
 import './App.css';
 import { useState } from 'react';
+import Button from '@mui/material/Button';
+import TextField from '@mui/material/TextField';
+import Stack from '@mui/material/Stack';
+import IconButton from '@mui/material/IconButton';
+import DeleteIcon from '@mui/icons-material/Delete';
+import Badge from '@mui/material/Badge';
+import MailIcon from '@mui/icons-material/Mail';
+import ExpandLessIcon from '@mui/icons-material/ExpandLess';
+import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
+import Card from '@mui/material/Card';
+import CardContent from '@mui/material/CardContent';
+import CardMedia from '@mui/material/CardMedia';
+import Typography from '@mui/material/Typography';
+import { CardActionArea } from '@mui/material';
+
 
 function App() {
   return (
@@ -95,18 +110,15 @@ function MovieList(){
       }
   ]);
   return (
-    <div className='movie-list'>
+   
 
-<div className="add-movie">
-       <label className='movie-label'>Movie Name</label>
-      <input onChange={(event)=>setName(event.target.value)} className='movie-nameAdd' type='text' />
-      <label className='movie-pictures'>Paste Url</label>
-      <input onChange={(event)=>setPoster(event.target.value)} className='movie-picture' type='text' />
-      <label className='movie-rating'>Rating</label>
-      <input onChange={(event)=>setRating(event.target.value)} className='movie-rate' type='text' />
-      <label className='movie-describe'>Summary</label>
-      <input onChange={(event)=>setSummary(event.target.value)} className='movie-sum' type='text' />
-      <button onClick={()=>setMovieList([...movieList, 
+    <div>
+      <div className='add-movie'>
+      <TextField id="outlined-basic" label="Name" variant="outlined" onChange={(event)=>setName(event.target.value)} className='movie-name' type='text'/>
+      <TextField id="outlined-basic" label="Poster-URL" variant="outlined" onChange={(event)=>setPoster(event.target.value)} className='movie-picture' type='text' />
+      <TextField id="outlined-basic" label="Rating" variant="outlined" onChange={(event)=>setRating(event.target.value)} className='movie-rate' type='text' />
+      <TextField id="outlined-basic" label="Summary" variant="outlined" onChange={(event)=>setSummary(event.target.value)} className='movie-sum' type='text'/>
+      <Button variant="contained" onClick={()=>setMovieList([...movieList, 
       ({
                 name: name,
                 poster: poster,
@@ -114,22 +126,22 @@ function MovieList(){
                 summary: summary
         
       })
-      ])} className='submit'>Add</button>
+      ])} className='submit'>Add Movie</Button>
 
       </div>
-   
 
 
 
 
 
 
-
+<div className='movie-list'>
       {movieList.map((mv, index) => (
       <Movie key={index} movie={mv} />
       ))}
- 
-    </div>
+ </div>
+ </div>
+
     
   );
   
@@ -145,56 +157,68 @@ function Movie({movie}) {
   const [show, setShow] = useState(true);
 
   return (
-  <div className="movie-container">
-    <img src={movie.poster} alt="movie.name" className='movie-poster'/>
-    <div className="movie-specs">
+    <Card sx={{ maxWidth: 345 }} className="movie-container">
+       <CardActionArea>
 
-    <h2 className='movie-name'>{movie.name}</h2>
-    <p style={styles} className="movie-rating">⭐️ {movie.rating}</p>
-    </div>
-    <button onClick={()=> setShow(!show)}>Toggle Description</button>
+    <CardMedia component="img" image={movie.poster} alt="movie.name" className='movie-poster'/>
+    <CardContent>
+    <Typography gutterBottom variant="h5" component="div" className='movie-name'>
+    {movie.name}
+    <IconButton onClick={()=> setShow(!show)} aria-label="delete" color='primary'>
+    {show ? <ExpandLessIcon /> : <ExpandMoreIcon />}
     
-    {show ?  <p className="movie-summary">{movie.summary}</p> : null}
+    </IconButton>
+    
+          </Typography>
+   
+          <p style={styles} className="movie-rating">⭐️{movie.rating}</p>
+    
+  
+    <div>
+    <Typography variant="body2" color="text.secondary">
+           {show ?  <p className="movie-summary">{movie.summary}</p> : null}
+           
+          </Typography>
+    
+          </div>
+          
+   
+    </CardContent>
     <Counter />
     
-    </div>
-    
+    {/* </div> */}
+   
+    </CardActionArea>
+    </Card>
   );
 }
  function Counter() {
   let [like, setLike] = useState(0);
   let [dislike, setDisLike] = useState(0);
 
+  const incrementLike =  () => setLike(like + 1);
+  const incrementDisLike =  () => setDisLike(dislike + 1);
+
   return (
     <div>
-      <button onClick={() => setLike(like + 1)}>👍 like {like}</button>
-      <button onClick={() => setDisLike(dislike + 1)}>👎 dislike {dislike}</button>
+     
+      <IconButton onClick={incrementLike} aria-label="delete" color="primary" size="small">
+      <Badge badgeContent={like} color="primary">
+👍
+</Badge>
+</IconButton>
+
+      <IconButton onClick={incrementDisLike} aria-label="delete" color="error" size="small">
+
+      <Badge badgeContent={dislike} color="error">
+      👎
+</Badge>
+</IconButton>
     </div>
   );
 }
 
-// function AddMovie() {
-//   const [movieName, setMovieName] = useState("");
-//   const [moviePoster, setMoviePoster] = useState("");
-//     const [rating, setRating] = useState(0);
-//     const [summary, setSummary] = useState("");
-  
-//   return(
-//     <div className="add-movie">
-//        <label className='movie-label'>Movie Name</label>
-//       <input onChange={(event)=>setMovieName(event.target.value)} className='movie-nameAdd' type='text' />
-//       <label className='movie-pictures'>Paste Url</label>
-//       <input onChange={(event)=>setMoviePoster(event.target.value)} className='movie-picture' type='text' />
-//       <label className='movie-rating'>Rating</label>
-//       <input onChange={(event)=>setRating(event.target.value)} className='movie-rate' type='text' />
-//       <label className='movie-describe'>Summary</label>
-//       <input onChange={(event)=>setSummary(event.target.value)} className='movie-sum' type='text' />
-//       <button onClick={()=>MovieList([...MovieList, movieName])} className='submit'>Add</button>
 
-
-//     </div>
-//   )
-// }
 
 
 
