@@ -10,11 +10,7 @@
 }
 
 
-.movie-name {
-  font-size: 24px;
-  margin: 0;
- 
-}
+
 
 .movie-specs {
   display: flex;
@@ -24,7 +20,7 @@
 
 .movie-container {
   margin-top: 100px;
-  width: 340px;
+  
 }
 
 
@@ -59,9 +55,17 @@
   
 }
 .movie-name{
-
+  font-size: 16px !important;
   font-weight: bold !important;
 }
 
 
+.movie-first-line{
+  display: flex;
+  justify-content: space-between;
+}
 
+.movie-detail-container{
+  max-width: 750px;
+  padding: 16px;
+}
