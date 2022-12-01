@@ -21,10 +21,11 @@ export function Movie({ movie, id }) {
   const navigate = useNavigate();
 
   return (
-    <Card sx={{ maxWidth: 345 }} className="movie-container">
-      <CardActionArea>
+    <Card className="movie-container">
+      <CardMedia component="img" image={movie.poster} alt="movie.name" className='movie-poster' />
+     
 
-        <CardMedia component="img" image={movie.poster} alt="movie.name" className='movie-poster' />
+        
         <CardContent>
           <div className='movie-first-line'>
           <Typography gutterBottom variant="h5" component="div" className='movie-name'>
@@ -53,14 +54,15 @@ export function Movie({ movie, id }) {
             </Typography>
 
           </div>
-
-
+          <CardActionArea>
+          <Counter />
+          </CardActionArea>
         </CardContent>
-        <Counter />
+        
 
         {/* </div> */}
 
-      </CardActionArea>
+     
     </Card>
   );
 }
